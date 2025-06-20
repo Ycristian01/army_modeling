@@ -5,10 +5,10 @@ class PikemanUnit < Unit
   def initialize
     super(
       strength_points: 5, 
-      train_cost: 10,
+      training_cost: 10,
       power_up_cost: 30
     )
-    @post_train_points = 3
+    @post_training_points = 3
   end
 
   def power_up
