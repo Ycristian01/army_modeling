@@ -1,4 +1,4 @@
-require_relative "./helpers/army_name.helper"
+require_relative "./helpers/names.helper"
 
 class Army
   attr_accessor :gold
@@ -35,6 +35,25 @@ class Army
         soldiers << upgraded_unit
       end
     end
+  end
+
+  def punish
+    sorted_soldiers = soldiers.sort_by{|soldier| -soldier.strength_points}
+    pre_total_strength = @civilization.total_strength
+    @civilization.soldiers = sorted_soldiers.drop(2)
+    puts "The #{@army_name} lost a total of #{pre_total_strength - @civilization.total_strength} strength points"
+  end
+
+  def reward
+    @gold += 100
+    puts "The #{@army_name} now has #{@gold} of gold"
+  end
+  
+
+  def remove_random_soldier
+    random_soldier = soldiers.sample
+    soldiers.delete(random_soldier)
+    puts "the #{@army_name} lost a #{formatted_unit_name(random_soldier.class.name)} with #{random_soldier.strength_points} strength points"
   end
 
   def add_battle_record(new_battle_record)

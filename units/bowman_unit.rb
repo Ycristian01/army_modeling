@@ -1,7 +1,6 @@
 require_relative 'unit'
 
 class BowmanUnit < Unit
-
   def initialize
     super(
       strength_points: 10, 

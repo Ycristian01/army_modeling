@@ -9,9 +9,9 @@ pikeman = PikemanUnit.new
 bowman = BowmanUnit.new
 knight = KnightUnit.new
 
-puts "pikeman stats: #{pikeman.inspect}"
-puts "bowman stats: #{bowman.inspect}"
-puts "knight stats: #{knight.inspect}"
+# puts "pikeman stats: #{pikeman.inspect}"
+# puts "bowman stats: #{bowman.inspect}"
+# puts "knight stats: #{knight.inspect}"
 
 # test single civilizations
 

@@ -6,8 +6,8 @@ class BattleRecord
   end
 
   def show_battle_stats
-    puts "You have fought against #{@enemy.army_name}"
-    puts "Your fight was the past #{@battle_date}"
+    puts "The fight was against #{@enemy.army_name}"
+    puts "The fight was the past #{@battle_date}"
     puts "The result was a #{@result}"
   end
 end
