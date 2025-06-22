@@ -1,7 +1,7 @@
 def formatted_army_name(civilization_name)
   civilization_name
     .gsub(/Civilization$/, '')
-    .downcase + ' army'
+    .capitalize + ' Army'
 end
 
 def formatted_unit_name(unit_class_name)

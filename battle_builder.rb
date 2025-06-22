@@ -10,15 +10,15 @@ class BattleBuilder
 
   def start_fight
     if (@first_army.total_strength > @second_army.total_strength)
-      puts "THE FIRST ARMY (#{@first_army.army_name}) WINS"
+      puts "THE #{@first_army.name} WINS 🏆"
       save_battle_results("win", "loose")
       post_battle_actions(@first_army, @second_army)
     elsif (@second_army.total_strength > @first_army.total_strength)
-      puts "THE SECOND ARMY (#{@second_army.army_name}) WINS"
+      puts "THE #{@second_army.name} WINS 🏆"
       save_battle_results("loose", "win")
       post_battle_actions(@second_army, @first_army)
     else
-      puts "THE BATTLE WAS A DRAW"
+      puts "THE BATTLE WAS A DRAW 🤝"
       save_battle_results
       draw
     end

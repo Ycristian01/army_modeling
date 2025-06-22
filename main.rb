@@ -1,67 +1,148 @@
 Dir["./units/*.rb"].each { |file| require_relative file }
 Dir["./civilizations/*.rb"].each { |file| require_relative file }
+require_relative "./helpers/logs.helper"
 require_relative "army"
 require_relative "battle_builder"
 
-# test single units
+# Test single units with their basic stats
+def show_units_basic_stats
+  pikeman = PikemanUnit.new
+  bowman = BowmanUnit.new
+  knight = KnightUnit.new
 
-pikeman = PikemanUnit.new
-bowman = BowmanUnit.new
-knight = KnightUnit.new
+  log_separator("Units Basic Stats")
+  pikeman.show_unit_stats
+  bowman.show_unit_stats
+  knight.show_unit_stats
+end
 
-# puts "pikeman stats: #{pikeman.inspect}"
-# puts "bowman stats: #{bowman.inspect}"
-# puts "knight stats: #{knight.inspect}"
+# Test armies
+def armies_stats
+  chinese_civilization = ChineseCivilization.new
+  british_civilization = BritishCivilization.new
+  bizantine_civilization = BizantineCivilization.new
 
-# test single civilizations
+  chinese_army = Army.new(chinese_civilization)
+  british_army = Army.new(british_civilization)
+  bizantine_army = Army.new(bizantine_civilization)
+
+
+  log_separator("Armies Basic Stats")
+  chinese_army.show_army_stats
+  british_army.show_army_stats
+  bizantine_army.show_army_stats
+end
+
+# Test units training
+def train_army_units(army)
+
+  log_separator("Units training")
+  puts "🪖 ⚔️ 🛡️  #{army.name} total strength before training: #{army.total_strength}"
+
+  pikeman_to_train = army.soldiers.select {|unit| unit.class == PikemanUnit}.first
+  bowman_to_train = army.soldiers.select {|unit| unit.class == BowmanUnit}.first
+  knight_to_train = army.soldiers.select {|unit| unit.class == KnightUnit}.first
+
+  army.train(pikeman_to_train)
+  army.train(bowman_to_train)
+  army.train(knight_to_train)
+
+  puts "🪖 ⚔️ 🛡️ ➕  #{army.name} total strength after training: #{army.total_strength}"
+  puts "💰 #{army.name} total gold after training: #{army.gold}"
+  puts ""
+
+  return army
+end
+
+# Test units power-up
+def power_up_army_units(army)
+
+  log_separator("Units power-up")
+  puts "🪖 ⚔️ 🛡️  #{army.name} total strength before power-up: #{army.total_strength}"
+
+  pikeman_to_power_up = army.soldiers.select {|unit| unit.class == PikemanUnit}.first
+  bowman_to_power_up = army.soldiers.select {|unit| unit.class == BowmanUnit}.first
+  knight_to_power_up = army.soldiers.select {|unit| unit.class == KnightUnit}.first
+
+  army.power_up_unit(pikeman_to_power_up)
+  army.power_up_unit(bowman_to_power_up)
+  army.power_up_unit(knight_to_power_up)
+
+  puts "🪖 ⚔️ 🛡️ ➕  #{army.name} total strength after power-up: #{army.total_strength}"
+  puts "💰 #{army.name} total gold after power-up: #{army.gold}"
+  puts ""
+
+  return army
+end
+
+# Test battle
+def face_armies(first_army, second_army)
+  log_separator("BATTLE STARTS: #{first_army.name} 🆚 #{second_army.name}")
+  battle_builder = BattleBuilder.new(first_army, second_army)
+  battle_builder.start_fight
+
+  log_separator("#{first_army.name} last battle record:")
+  first_army.get_last_battle_stats
+  log_separator("#{second_army.name} last battle record:")
+  second_army.get_last_battle_stats
+end
+
+# Test two differentes armies with no upgrades
+def binzantine_vs_british
+  british_civilization = BritishCivilization.new
+  bizantine_civilization = BizantineCivilization.new
+
+  british_army = Army.new(british_civilization)
+  bizantine_army = Army.new(bizantine_civilization)
+
+  face_armies(british_army, bizantine_army)
+end
+
+# Test two armies from the same civilization with no upgrades (draw)
+def chinese_vs_chinese
+  a_chinese_civilization = ChineseCivilization.new
+  another_chinese_civilization = ChineseCivilization.new
+
+  a_chinese_army = Army.new(a_chinese_civilization)
+  another_chinese_army = Army.new(another_chinese_civilization)
+
+  face_armies(a_chinese_army, another_chinese_army)
+end
+
+# Test two differentes armies with upgrades
+def chinese_vs_british_with_upgrades
+  chinese_civilization = ChineseCivilization.new
+  british_civilization = BritishCivilization.new
+
+  chinese_army = Army.new(chinese_civilization)
+  british_army = Army.new(british_civilization)
+
+  chinese_army = train_army_units(chinese_army)
+  british_army = train_army_units(british_army)
+
+  chinese_army = power_up_army_units(chinese_army)
+  british_army = power_up_army_units(british_army)
+
+  face_armies(chinese_army, british_army)
+end
+
+# main
 
 chinese_civilization = ChineseCivilization.new
-british_civilization = BritishCivilization.new
-bizantine_civilization = BizantineCivilization.new
+chinese_army_to_level_up = Army.new(chinese_civilization)
 
-# test armies creation
+puts "*"*50
+show_units_basic_stats
+puts "*"*50
+armies_stats
 
-chinese_army = Army.new(chinese_civilization)
-british_army = Army.new(british_civilization)
+puts "*"*50
+train_army_units(chinese_army_to_level_up)
+power_up_army_units(chinese_army_to_level_up)
+puts "*"*50
 
-puts "chinese army total soldiers: #{chinese_army.soldiers.length}"
-puts "chinese army total gold: #{chinese_army.gold}"
-
-puts "british army total soldiers: #{british_army.soldiers.length}"
-puts "british army total gold: #{british_army.gold}"
-
-# test units training
-
-puts "chinese army total strength before training: #{chinese_army.total_strength}"
-puts "british army total strength before training: #{british_army.total_strength}" 
-
-pikeman_to_train = chinese_army.soldiers.select {|unit| unit.class == PikemanUnit}.first
-bowman_to_train = chinese_army.soldiers.select {|unit| unit.class == BowmanUnit}.first
-knight_to_train = chinese_army.soldiers.select {|unit| unit.class == KnightUnit}.first
-
-chinese_army.train(pikeman_to_train)
-chinese_army.train(bowman_to_train)
-chinese_army.train(knight_to_train)
-
-puts "chinese army total strength after training: #{chinese_army.total_strength}"
-puts "chinese army total gold after training: #{chinese_army.gold}"
-
-# test units power_up
-
-pikeman_to_power_up = chinese_army.soldiers.select {|unit| unit.class == PikemanUnit}.first
-bowman_to_power_up = chinese_army.soldiers.select {|unit| unit.class == BowmanUnit}.first
-knight_to_power_up = chinese_army.soldiers.select {|unit| unit.class == KnightUnit}.first
-
-chinese_army.power_up_unit(pikeman_to_power_up)
-chinese_army.power_up_unit(bowman_to_power_up)
-chinese_army.power_up_unit(knight_to_power_up)
-
-puts "chinese army total strength after power up units: #{chinese_army.total_strength}"
-puts "chinese army total gold after power up units: #{chinese_army.gold}"
-
-# test battle
-
-battle_builder = BattleBuilder.new(chinese_army, british_army)
-battle_builder.start_fight
-chinese_army.get_last_battle_stats
-british_army.get_last_battle_stats
+binzantine_vs_british
+puts "*"*50
+chinese_vs_chinese
+puts "*"*50
+chinese_vs_british_with_upgrades

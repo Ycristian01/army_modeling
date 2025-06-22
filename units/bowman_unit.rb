@@ -11,6 +11,8 @@ class BowmanUnit < Unit
   end
 
   def power_up
-    return KnightUnit.new
+    new_unit = KnightUnit.new
+    puts "🆙 Total strength points earned by power-up bowman to knight: #{new_unit.strength_points - self.strength_points}"
+    return new_unit
   end
 end

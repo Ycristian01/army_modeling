@@ -2,13 +2,13 @@ require_relative "./helpers/names.helper"
 
 class Army
   attr_accessor :gold
-  attr_reader :army_name
+  attr_reader :name
 
   def initialize(civilization)
     @gold = 1000
     @battle_record = []
     @civilization = civilization
-    @army_name = formatted_army_name(civilization.class.name)
+    @name = formatted_army_name(civilization.class.name)
   end
 
   def soldiers
@@ -41,19 +41,19 @@ class Army
     sorted_soldiers = soldiers.sort_by{|soldier| -soldier.strength_points}
     pre_total_strength = @civilization.total_strength
     @civilization.soldiers = sorted_soldiers.drop(2)
-    puts "The #{@army_name} lost a total of #{pre_total_strength - @civilization.total_strength} strength points"
+    puts "💀 The #{@name} lost a total of #{pre_total_strength - @civilization.total_strength} strength points. Now has #{@civilization.total_strength} strength points"
   end
 
   def reward
     @gold += 100
-    puts "The #{@army_name} now has #{@gold} of gold"
+    puts "💰 The #{@name} now has #{@gold} of gold"
   end
   
 
   def remove_random_soldier
     random_soldier = soldiers.sample
     soldiers.delete(random_soldier)
-    puts "the #{@army_name} lost a #{formatted_unit_name(random_soldier.class.name)} with #{random_soldier.strength_points} strength points"
+    puts "🔀 The #{@name} lost a #{formatted_unit_name(random_soldier.class.name)} with #{random_soldier.strength_points} strength points"
   end
 
   def add_battle_record(new_battle_record)
@@ -66,5 +66,21 @@ class Army
     else
       print "This army has no battles yet"
     end
+  end
+
+  def show_army_stats
+    puts "🏰 #{@name}"
+    puts "🔹 Pikemen: #{get_total_soldiers(PikemanUnit)}"
+    puts "🏹 Bowmen: #{get_total_soldiers(BowmanUnit)}"
+    puts "🐎 Knights: #{get_total_soldiers(KnightUnit)}"
+    puts "💰 Available gold: #{gold}"
+    puts "🪖 ⚔️ 🛡️  Total strength points: #{total_strength}"
+    puts ""
+  end
+
+  private
+
+  def get_total_soldiers(unit_type)
+    self.soldiers.count {|unit| unit.class == unit_type}
   end
 end

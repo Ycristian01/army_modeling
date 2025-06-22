@@ -12,7 +12,7 @@ class KnightUnit < Unit
   end
 
   def power_up
-    puts "This unit can not be upgraded"
+    puts "❌ The knight unit can not be upgraded"
     return self
   end
 end
