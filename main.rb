@@ -1,8 +1,7 @@
 Dir["./units/*.rb"].each { |file| require_relative file }
 Dir["./civilizations/*.rb"].each { |file| require_relative file }
+Dir["./src/*.rb"].each { |file| require_relative file }
 require_relative "./helpers/logs.helper"
-require_relative "army"
-require_relative "battle_builder"
 
 # Test single units with their basic stats
 def show_units_basic_stats

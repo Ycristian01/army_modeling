@@ -1,4 +1,4 @@
-require_relative "./helpers/names.helper"
+require_relative "../helpers/names.helper"
 
 class Army
   attr_accessor :gold
