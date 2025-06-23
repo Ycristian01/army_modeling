@@ -1,30 +1,8 @@
-# 🪖 Army Modeling
+# Army Modeling
 
 A simple Ruby simulation exercise to model armies, their units, civilizations, and battles. This exercise is part of the Amalgama process interview for Software Engineer role.
 
-## 📁 Project Structure
-
-.
-├── civilizations
-│   ├── bizantine_civilization.rb
-│   ├── british_civilization.rb
-│   ├── chinese_civilization.rb
-│   └── civilization.rb
-├── helpers
-│   ├── logs.helper.rb
-│   └── names.helper.rb
-├── main.rb
-├── src
-│   ├── army.rb
-│   ├── battle_builder.rb
-│   └── battle_record.rb
-└── units
-    ├── bowman_unit.rb
-    ├── knight_unit.rb
-    ├── pikeman_unit.rb
-    └── unit.rb
-
-## 🧱 Classes Overview
+## Classes Overview
 
 ### Units (`units/`)
 - `Unit`: Base class with strength points, training, and power-up logic.
@@ -32,7 +10,7 @@ A simple Ruby simulation exercise to model armies, their units, civilizations, a
   
 ### Civilizations (`civilizations/`)
 - `Civilization`: Base class with the initial arrangement of the army units.
-- `ChineseCivilization`, `BritishCivilization`, `BizantineCivilization`: Subclasses with theire predefined unit counts based on the civilization type.
+- `ChineseCivilization`, `BritishCivilization`, `BizantineCivilization`: subclasses with predefined unit counts based on the civilization type.
 
 ### Army (`src/army.rb`)
 - Build all the army logic:
@@ -42,8 +20,8 @@ A simple Ruby simulation exercise to model armies, their units, civilizations, a
   - Store battle history
 
 ### Battle System (`src/battle_builder.rb`, `src/battle_record.rb`)
-- `BattleBuilder`: Simulates a fight between two armies and records the outcome.
-- `BattleRecord`: Stores the result, opponent, and date.
+- `BattleBuilder`: simulates a fight between two armies and records the outcome.
+- `BattleRecord`: stores the result, opponent, and date.
 
 ### Main class (`./main.rb`)
 - Show the initial unit stats
